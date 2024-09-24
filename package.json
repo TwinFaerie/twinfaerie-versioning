@@ -1,0 +1,19 @@
+{
+  "name": "com.twinfaerie.versioning",
+  "version": "1.0.0",
+  "displayName": "TwinFaerie Versioning",
+  "description": "For easier versioning using semantic version",
+  "unity": "2020.3",
+  "documentationUrl": "https://github.com/TwinFaerie/twinfaerie-versioning/",
+  "changelogUrl": "https://github.com/TwinFaerie/twinfaerie-versioning/releases",
+  "licensesUrl": "https://github.com/TwinFaerie/twinfaerie-versioning/blob/main/LICENSE",
+  "repository": "https://github.com/TwinFaerie/twinfaerie-versioning",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@twinfaerie"
+  },
+  "author": {
+    "name": "Twin Faerie",
+    "email": "support@twinfaerie.my.id",
+    "url": "https://www.twinfaerie.my.id/"
+  }
+}

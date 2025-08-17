@@ -13,6 +13,9 @@ namespace TF.Versioning.Editor
 
             string buildIdStr = Environment.GetEnvironmentVariable("CI_BUILD_ID") ?? "1";
             if (int.TryParse(buildIdStr, out int buildId)) PlayerSettings.Android.bundleVersionCode = buildId;
+            
+            Console.WriteLine($"[TF.VersioningCI] Applied Version: {PlayerSettings.bundleVersion}");
+            Console.WriteLine($"[TF.VersioningCI] Applied Android BuildCode: {PlayerSettings.Android.bundleVersionCode}");
         }
     }
 }

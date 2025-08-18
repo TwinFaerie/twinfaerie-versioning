@@ -27,8 +27,6 @@ namespace TF.Versioning.Editor
             
             Console.WriteLine($"[TF.VersioningCI] Using Keystore at path: {PlayerSettings.Android.keystoreName}");
             Console.WriteLine($"[TF.VersioningCI] Using Keystore alias: {PlayerSettings.Android.keyaliasName}");
-            Console.WriteLine($"[TF.VersioningCI] Using Keystore at path: {PlayerSettings.Android.keystorePass}");
-            Console.WriteLine($"[TF.VersioningCI] Using Keystore alias: {PlayerSettings.Android.keyaliasPass}");
         }
     }
 }

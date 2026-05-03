@@ -16,10 +16,12 @@ namespace TF.Versioning.Editor
                 PlayerSettings.Android.bundleVersionCode = buildId;
                 
                 // just hardcode it here for now
-                PlayerSettings.bundleVersion += $"-build.{buildId}";
+                PlayerSettings.bundleVersion += $"+build.{buildId}";
             }
             
-            Console.WriteLine($"[TF.VersioningCI] Applied Version: {PlayerSettings.bundleVersion}");
+            AssetDatabase.SaveAssets();
+            
+            Console.WriteLine($"[TF.VersioningCI] Applied Version: {UnityEngine.Application.version}");
             Console.WriteLine($"[TF.VersioningCI] Applied Android BuildCode: {PlayerSettings.Android.bundleVersionCode}");
         }
 
@@ -30,6 +32,8 @@ namespace TF.Versioning.Editor
             PlayerSettings.Android.keystorePass = Environment.GetEnvironmentVariable("CI_KEYSTORE_PASS");
             PlayerSettings.Android.keyaliasName = Environment.GetEnvironmentVariable("CI_ALIAS_NAME");
             PlayerSettings.Android.keyaliasPass = Environment.GetEnvironmentVariable("CI_ALIAS_PASS");
+            
+            AssetDatabase.SaveAssets();
             
             Console.WriteLine($"[TF.VersioningCI] Using Keystore at path: {PlayerSettings.Android.keystoreName}");
             Console.WriteLine($"[TF.VersioningCI] Using Keystore alias: {PlayerSettings.Android.keyaliasName}");

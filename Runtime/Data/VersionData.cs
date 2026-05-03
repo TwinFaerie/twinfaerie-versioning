@@ -9,18 +9,16 @@ namespace TF.Versioning
     {
         public const string RegexPattern = @"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(-(?<labelName>[a-zA-Z0-9]+))?(\.(?<labelVersion>\d+))?$";
         
-        [HorizontalGroup("Main", width:33)] [HideLabel]
-        [SerializeField] private int major;
-        [HorizontalGroup("Main", width:40)] [LabelText(".")] [LabelWidth(5)]
-        [SerializeField] private int minor;
-        [HorizontalGroup("Main", width:40)] [LabelText(".")] [LabelWidth(5)]
-        [SerializeField] private int patch;
+        [SerializeField] private bool useShortVersion;
         
-        [HorizontalGroup("Main")] [LabelText("-")] [LabelWidth(10)]
-        [SerializeField] private string labelName;
-        [HorizontalGroup("Main", width:40)] [LabelText(".")] [LabelWidth(5)]
-        [SerializeField] private int labelVersion;
+        [HorizontalGroup("Main", width:33), HideLabel, SerializeField] private int major;
+        [HorizontalGroup("Main", width:40), LabelText("."), LabelWidth(5), SerializeField] private int minor;
+        [HorizontalGroup("Main", width:40), LabelText("."), LabelWidth(5), SerializeField] private int patch;
+        
+        [HideIf("useShortVersion"), HorizontalGroup("Main"), LabelText("-"), LabelWidth(10), SerializeField] private string labelName;
+        [HideIf("useShortVersion"), HorizontalGroup("Main", width:40), LabelText("."), LabelWidth(5), SerializeField] private int labelVersion;
             
+        public bool UseShortVersion => useShortVersion;
         public string ShortVersion => $"{major}.{minor}.{patch}";
         public string Label => $"{(string.IsNullOrWhiteSpace(labelName) ? "Undefined" : labelName)}.{labelVersion}";
         public string FullVersion => $"{ShortVersion}-{Label}";

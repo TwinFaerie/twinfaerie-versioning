@@ -14,10 +14,7 @@ namespace TF.Versioning
         private void Start()
         {
             text = GetComponent<TMP_Text>();
-
-            text.text = !Debug.isDebugBuild || simulateRelease ? 
-                GetShortVersion() : 
-                Application.version;
+            text.text = $"v{(!Debug.isDebugBuild || simulateRelease ? GetShortVersion() : Application.version)}";
         }
 
         private string GetShortVersion()

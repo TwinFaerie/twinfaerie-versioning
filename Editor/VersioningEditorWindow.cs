@@ -27,9 +27,9 @@ namespace TF.Versioning.Editor
         private bool IsVersionValid => Regex.IsMatch(CurrentVersion, VersionData.RegexPattern);
 
         [HorizontalGroup("Button", order:50)] [Button("Set Version")]
-        private void TestButton()
+        private void SetVersion()
         {
-            PlayerSettings.bundleVersion = version.FullVersion;
+            PlayerSettings.bundleVersion = version.UseShortVersion ? version.ShortVersion : version.FullVersion;
             var message = $"Version Update Success: \nCurrent Version is {Application.version}";
 
             if (IsAndroid)

@@ -13,7 +13,7 @@ namespace TF.Versioning.Editor
         
         public static void SetVersion()
         {
-            var version = GetArgValue("-version") ?? "0.1.0";
+            var version = GetArgValue("-buildVersion") ?? "0.1.0";
             PlayerSettings.bundleVersion = version;
 
             var buildIdStr = GetArgValue("-buildId") ?? "1";

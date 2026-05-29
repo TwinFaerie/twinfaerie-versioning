@@ -5,13 +5,19 @@ namespace TF.Versioning.Editor
 {
     public static class VersioningCI
     {
+        public static void SetupBuild()
+        {
+            SetVersion();
+            SetAndroidKeystore();
+        }
+        
         public static void SetVersion()
         {
-            var version = Environment.GetEnvironmentVariable("CI_TAG") ?? "0.0.1";
+            var version = GetArgValue("-version") ?? "0.1.0";
             PlayerSettings.bundleVersion = version;
 
-            var buildIdStr = Environment.GetEnvironmentVariable("CI_BUILD_ID") ?? "1";
-            if (int.TryParse(buildIdStr, out int buildId))
+            var buildIdStr = GetArgValue("-buildId") ?? "1";
+            if (int.TryParse(buildIdStr, out var buildId))
             {
                 PlayerSettings.Android.bundleVersionCode = buildId;
                 
@@ -21,22 +27,40 @@ namespace TF.Versioning.Editor
             
             AssetDatabase.SaveAssets();
             
-            Console.WriteLine($"[TF.VersioningCI] Applied Version: {UnityEngine.Application.version}");
+            Console.WriteLine($"[TF.VersioningCI] Applied Version: {PlayerSettings.bundleVersion}");
             Console.WriteLine($"[TF.VersioningCI] Applied Android BuildCode: {PlayerSettings.Android.bundleVersionCode}");
         }
 
         public static void SetAndroidKeystore()
         {
+            var keystorePath = GetArgValue("-keystorePath");
+            if (string.IsNullOrWhiteSpace(keystorePath)) return;
+            
             PlayerSettings.Android.useCustomKeystore = true;
-            PlayerSettings.Android.keystoreName = Environment.GetEnvironmentVariable("CI_KEYSTORE_PATH");
-            PlayerSettings.Android.keystorePass = Environment.GetEnvironmentVariable("CI_KEYSTORE_PASS");
-            PlayerSettings.Android.keyaliasName = Environment.GetEnvironmentVariable("CI_ALIAS_NAME");
-            PlayerSettings.Android.keyaliasPass = Environment.GetEnvironmentVariable("CI_ALIAS_PASS");
+            PlayerSettings.Android.keystoreName = GetArgValue("-keystorePath");
+            PlayerSettings.Android.keystorePass = GetArgValue("-keystorePass");
+            PlayerSettings.Android.keyaliasName = GetArgValue("-keystoreAliasName");
+            PlayerSettings.Android.keyaliasPass = GetArgValue("-keystoreAliasPass");
             
             AssetDatabase.SaveAssets();
             
             Console.WriteLine($"[TF.VersioningCI] Using Keystore at path: {PlayerSettings.Android.keystoreName}");
             Console.WriteLine($"[TF.VersioningCI] Using Keystore alias: {PlayerSettings.Android.keyaliasName}");
+        }
+        
+        private static string GetArgValue(string argName)
+        {
+            var args = Environment.GetCommandLineArgs();
+
+            for (var i = 0; i < args.Length - 1; i++)
+            {
+                if (args[i].Equals(argName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return args[i + 1];
+                }
+            }
+
+            return null;
         }
     }
 }

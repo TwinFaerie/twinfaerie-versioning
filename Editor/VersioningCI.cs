@@ -36,8 +36,10 @@ namespace TF.Versioning.Editor
             var keystorePath = GetArgValue("-keystorePath");
             if (string.IsNullOrWhiteSpace(keystorePath)) return;
             
+            Console.WriteLine("[TF.VersioningCI] Detected Android Keystore, applying secrets");
+            
             PlayerSettings.Android.useCustomKeystore = true;
-            PlayerSettings.Android.keystoreName = GetArgValue("-keystorePath");
+            PlayerSettings.Android.keystoreName = keystorePath;
             PlayerSettings.Android.keystorePass = GetArgValue("-keystorePass");
             PlayerSettings.Android.keyaliasName = GetArgValue("-keystoreAliasName");
             PlayerSettings.Android.keyaliasPass = GetArgValue("-keystoreAliasPass");

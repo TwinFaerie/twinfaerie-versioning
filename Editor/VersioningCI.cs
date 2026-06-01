@@ -13,6 +13,7 @@ namespace TF.Versioning.Editor
         
         public static void SetVersion()
         {
+            var useShortVersion = GetArgValue("-useShortVersion") == "true";
             var version = GetArgValue("-buildVersion") ?? "0.1.0";
             PlayerSettings.bundleVersion = version;
 
@@ -21,8 +22,7 @@ namespace TF.Versioning.Editor
             {
                 PlayerSettings.Android.bundleVersionCode = buildId;
                 
-                // just hardcode it here for now
-                PlayerSettings.bundleVersion += $"+build.{buildId}";
+                if (!useShortVersion) PlayerSettings.bundleVersion += $"+build.{buildId}";
             }
             
             AssetDatabase.SaveAssets();

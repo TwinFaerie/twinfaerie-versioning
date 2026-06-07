@@ -12,8 +12,11 @@
     "registry": "https://npm.pkg.github.com/@twinfaerie"
   },
   "author": {
-    "name": "Twin Faerie",
-    "email": "support@twinfaerie.my.id",
-    "url": "https://www.twinfaerie.my.id/"
+    "name": "TwinFaerie",
+    "url": "https://www.twinfaerie.my.id/",
+    "email": "support@twinfaerie.my.id"
+  },
+  "dependencies": {
+    "com.unity.ugui": "2.0.0"
   }
 }
